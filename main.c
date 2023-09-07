@@ -58,17 +58,30 @@
 //    return 0;
 //}
 
-//#include "user_config.h"
+#include "vconfig.h"
 
-#define FOOBAR_NAMESPACE_DISABLED 0
-#define FOOBAR_NAMESPACE_ENABLED 1
-#define FOOBAR_NAMESPACE FOOBAR_NAMESPACE_ENABLED
-#define LOGGING_ENABLED 0
-#define LOGGING_DISABLED 1
-#define LOGGING LOGGING_DISABLED
+#ifdef _MSC_VER
+#define _CRTDBG_MAP_ALLOC
+#include <crtdbg.h>
+#else
+#define _ASSERT(expr) ((void)0)
+#define _ASSERTE(expr) ((void)0)
+#endif
 
 #include "foobar.h"
+#include "logger.h"
+#include <locale.h>
 
 void main() {
-	mdlfoobar.bar_single_function();
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+	setlocale(LC_ALL, "");
+
+#ifdef FSN
+	printf("Hello!\n");
+	ced_log("FSN is accesed");
+#endif
+
+	int* i = (int*)malloc(sizeof(int));
+
+
 }

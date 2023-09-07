@@ -1,6 +1,6 @@
 #ifndef BAR_H
 #define BAR_H
 
-void bar_single_function();
+void foobar_copy_bar();
 
 #endif // !BAR_H

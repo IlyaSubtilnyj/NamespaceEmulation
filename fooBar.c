@@ -1,9 +1,11 @@
 #define FOOBARIMPL
 #include "foobar.h"
+#undef FOOBARIMPL
 
 struct _foobar_namespace mdlfoobar = {
-    .fooM = {
-        .foo_module_function = foo_module_function
+    .foo = {
+        .create = foobar_create_foo,
+        .print = foobar_print_foo
     },
-    .bar_single_function = bar_single_function
+    .bar_copy = foobar_copy_bar
 };

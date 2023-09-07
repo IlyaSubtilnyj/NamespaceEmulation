@@ -1,6 +1,7 @@
 #define BARIMPL
-#include "Bar.h"
+#include "bar.h"
+#undef BARIMPL
 
-void bar_single_function() {
-
+void foobar_copy_bar() {
+	printf("Coping!\n");
 }
