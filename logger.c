@@ -1,27 +1,25 @@
+#define LOGGERIMPL
 #include "logger.h"
+#undef LOGGERIMPL
 
-/** */
-void _ced_log(FILE* file, const char* fmt, ...) {
+void _log(FILE* file, const char* fmt, ...) {
 	va_list ap;
-	time_t t;
-	struct tm tm;
-	char datestr[51];
-
-	/* determine if we just go to std error */
-	file = (file == NULL) ? stderr : file;
-
-	/* datetime & pid formatting */
-	t = time(NULL);
-	_tzset();
-	localtime_s(&tm, &t);
-	strftime(datestr, sizeof(datestr) - 1, "%a %b %d %T %Z %Y", &tm);
-	fprintf(file, "%s [%d]: ", datestr, getpid());
-
-	/* draw out the vararg format */
+	FILE* stream = NULL; //depends on config file
+	errno_t err;
+	if (file == NULL) {
+		if ((err = fopen_s(&stream,LOG_FILE, LOGGING_FILE_MODE)) != 0)
+			assert(0 && "The file for logging is not opened");
+		file = stream;
+	}
 	va_start(ap, fmt);
 	vfprintf(file, fmt, ap);
 	va_end(ap);
-
-	/* bump to the next line */
-	fprintf(file, "\n");
+	if (stream) 
+	{
+		if (fclose(stream)) 
+		{
+			assert(0 && "The file for logging cannot be closed");
+			file = NULL;
+		}
+	}		
 }

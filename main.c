@@ -75,13 +75,22 @@
 void main() {
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	setlocale(LC_ALL, "");
+	int x = 5;
+	
+	LOG_TRACEF("This trace%d", x);
+
+#define LOG_LEVEL LOG_LEVEL_WARN
+
+	LOG_WARNF("This warn", x);
+
+#define LOG_LEVEL LOG_LEVEL_WARN
+
+	LOG_ERRORF("This error", "");
 
 #ifdef FSN
 	printf("Hello!\n");
-	ced_log("FSN is accesed");
+	//ced_log("FSN is accesed");
 #endif
 
 	int* i = (int*)malloc(sizeof(int));
-
-
 }

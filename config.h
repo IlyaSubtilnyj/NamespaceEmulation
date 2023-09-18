@@ -5,6 +5,21 @@
 #define LOGGING_ENABLED 1
 #define LOGGING_DISABLED 0
 
+//LOGGING STRUCTURE CONSTANTS
+#ifdef _WIN32
+	#	define LOG__EOL "->\n"
+	#	define LOG__EOM "->->\x0a"
+#else
+	#	define LOG__EOL "\x20\x1A\x0a"
+	#	define LOG__EOM "\x1A\x1A\x0a"
+#endif
+
+
+//LOGGING LEVEL
+#define LOG_LEVEL_TRACE 0
+#define LOG_LEVEL_WARN  1
+#define LOG_LEVEL_ERROR 2
+
 //FOOBAR MODULE NAMESPACING CONFIGURATION
 #define FOOBAR_NAMESPACE_DISABLED 0
 #define FOOBAR_NAMESPACE_ENABLED 1
